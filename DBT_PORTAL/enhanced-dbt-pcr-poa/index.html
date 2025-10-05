@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBT Portal | Government of India</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Basic body & container */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: azure;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Header */
+        .header {
+            background: #93bde8;
+            color: rgb(5, 4, 4);
+            padding: 10px 0;
+        }
+
+        .header__content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header__logo h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header__subtitle {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .nav__list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 10px;
+        }
+
+        .nav__link {
+            display: block;
+            padding: 8px 12px;
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav__link:hover {
+            background: #6998df;
+        }
+
+        .nav__link.active {
+            background: #ffffff;
+            color: #222;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            background: #003366;
+        }
+
+        .mobile-menu button {
+            background: none;
+            border: 1px solid #ffffff80;
+            color: white;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #222;
+            color: #ccc;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav__list {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Header -->
+    <!-- <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__logo">
+                    <h2>🇮🇳 DBT Portal</h2>
+                    <span class="header__subtitle">Direct Benefit Transfer - PCR & PoA Acts</span>
+                </div>
+                <nav class="header__nav">
+                    <button class="btn btn--outline" onclick="showSection('home')">Home</button>
+                    <button class="btn btn--outline" onclick="showSection('beneficiary')">Beneficiary Portal</button>
+                    <button class="btn btn--outline" onclick="showSection('csc')">CSC Portal</button>
+                    <button class="btn btn--outline" onclick="showSection('public')">Public Dashboard</button>
+                    <button class="btn btn--primary" onclick="showSection('admin')">Admin Login</button>
+                </nav>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+    </header> -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__logo">
+                    <h2> Direct Benefit Transfer Portal</h2>
+                    <span class="header__subtitle">Direct Benefit Transfer - PCR & PoA Acts</span>
+                </div>
+                <nav class="header__nav">
+                    <ul class="nav__list">
+                        <li><a href="#" class="nav__link active" data-section="home">Home</a></li>
+                        <li><a href="#" class="nav__link" data-section="beneficiary">Victim/Beneficiary</a></li>
+                        <li><a href="#" class="nav__link" data-section="csc">CSC Portal</a></li>
+                        <li><a href="#" class="nav__link" data-section="public">Public Dashboard</a></li>
+                        <li><a href="#" class="nav__link" data-section="admin">Admin Login</a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+    </header>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu hidden" id="mobileMenu">
+        <button onclick="showSection('home'); toggleMobileMenu()">Home</button>
+        <button onclick="showSection('beneficiary'); toggleMobileMenu()">Victim/Beneficiary</button>
+        <button onclick="showSection('csc'); toggleMobileMenu()">CSC Portal</button>
+        <button onclick="showSection('public'); toggleMobileMenu()">Public Dashboard</button>
+        <button onclick="showSection('admin'); toggleMobileMenu()">Admin Login</button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main container">
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="container">
+                <div class="hero">
+                    <h1>Direct Benefit Transfer</h1>
+                    <p class="hero__subtitle">Centrally Sponsored Scheme for PCR Act & PoA Act - Digital India
+                        Initiative</p>
+
+                    <div class="hero__stats">
+                        <div class="stat-card">
+                            <h3>₹18.7 Cr</h3>
+                            <p>Total Disbursed This Month</p>
+                            <span class="stat-trend">↗ +12.5%</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>7,420</h3>
+                            <p>Applications This Month</p>
+                            <span class="stat-trend">↗ +8.3%</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>87.3%</h3>
+                            <p>Approval Rate</p>
+                            <span class="stat-trend">→ Stable</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>11 Days</h3>
+                            <p>Avg Processing Time</p>
+                            <span class="stat-trend">↘ -2.1 days</span>
+                        </div>
+                    </div>
+
+                    <div class="integration-ticker">
+                        <div class="ticker-item">
+                            <span class="status status--success">●</span> PFMS Connected
+                        </div>
+                        <div class="ticker-item">
+                            <span class="status status--success">●</span> Aadhaar/UIDAI Online
+                        </div>
+                        <div class="ticker-item">
+                            <span class="status status--success">●</span> eCourts Integrated
+                        </div>
+                        <div class="ticker-item">
+                            <span class="status status--warning">●</span> CCTNS Maintenance
+                        </div>
+                    </div>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card" onclick="showSection('beneficiary')">
+                        <div class="service-icon">👥</div>
+                        <h3>Beneficiary Services</h3>
+                        <p>Apply for compensation, track applications, and manage your benefits</p>
+                        <div class="service-features">
+                            <span>• Apply Online</span>
+                            <span>• Track Status</span>
+                            <span>• Download Receipts</span>
+                            <span>• File Grievances</span>
+                        </div>
+                    </div>
+
+                    <div class="service-card" onclick="showSection('csc')">
+                        <div class="service-icon">🏢</div>
+                        <h3>CSC Operator Portal</h3>
+                        <p>Assisted services for rural and remote area beneficiaries</p>
+                        <div class="service-features">
+                            <span>• Assisted Registration</span>
+                            <span>• Document Scanning</span>
+                            <span>• Status Inquiry</span>
+                            <span>• Print Services</span>
+                        </div>
+                    </div>
+
+                    <div class="service-card" onclick="showSection('public')">
+                        <div class="service-icon">📊</div>
+                        <h3>Public Dashboard</h3>
+                        <p>Transparent reporting and scheme performance analytics</p>
+                        <div class="service-features">
+                            <span>• State-wise Statistics</span>
+                            <span>• Performance Metrics</span>
+                            <span>• Fund Utilization</span>
+                            <span>• Success Stories</span>
+                        </div>
+                    </div>
+
+                    <div class="service-card" onclick="showSection('admin')">
+                        <div class="service-icon">⚙️</div>
+                        <h3>Administrative Portal</h3>
+                        <p>Comprehensive management and monitoring tools</p>
+                        <div class="service-features">
+                            <span>• Case Management</span>
+                            <span>• Payment Processing</span>
+                            <span>• Integration Monitoring</span>
+                            <span>• Analytics & Reports</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scheme Information -->
+                <div class="scheme-info">
+                    <h2>Scheme Coverage</h2>
+                    <div class="scheme-grid">
+                        <div class="scheme-card pcr-card">
+                            <h3>PCR Act Violations</h3>
+                            <p>Protection of Civil Rights Act, 1955</p>
+                            <ul>
+                                <li>Untouchability Practice (₹25,000-50,000)</li>
+                                <li>Social Boycott (₹15,000-30,000)</li>
+                                <li>Denial of Services (₹10,000-25,000)</li>
+                                <li>Forced Labor (₹25,000-50,000)</li>
+                            </ul>
+                        </div>
+                        <div class="scheme-card poa-card">
+                            <h3>PoA Act Atrocities</h3>
+                            <p>Scheduled Castes & Scheduled Tribes (Prevention of Atrocities) Act, 1989</p>
+                            <ul>
+                                <li>Physical Assault (₹50,000-1,00,000)</li>
+                                <li>Sexual Violence (₹1,00,000-5,00,000)</li>
+                                <li>Property Damage (Actual + ₹25,000)</li>
+                                <li>Economic Boycott (₹25,000-75,000)</li>
+                            </ul>
+                        </div>
+                        <div class="scheme-card icm-card">
+                            <h3>Inter-caste Marriage Incentive</h3>
+                            <p>Dr. Ambedkar Scheme for Social Integration</p>
+                            <ul>
+                                <li>Central Scheme Incentive (₹2,50,000)</li>
+                                <li>State Additional Benefits (₹50,000-1,00,000)</li>
+                                <li>Wedding Support Services</li>
+                                <li>Rehabilitation Assistance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer__content">
+                        <div class="footer__section">
+                            <h4>DBT Implementation Portal</h4>
+                            <p>Direct Benefit Transfer system for effective implementation of PCR Act and PoA Act
+                                through
+                                digital governance and transparent processes.</p>
+                        </div>
+                        <div class="footer__section">
+                            <h4>Quick Access</h4>
+                            <ul>
+                                <li><a href="#" onclick="showSection('beneficiary')">Apply for Benefits</a></li>
+                                <li><a href="#" onclick="showSection('public')">Public Dashboard</a></li>
+                                <li><a href="#" onclick="showSection('csc')">CSC Services</a></li>
+                                <li><a href="#" target="_blank">Scheme Guidelines</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer__section">
+                            <h4>Support</h4>
+                            <p>📞 National Helpline: 1800-111-3333</p>
+                            <p>📧 Email: support@dbt-pcr-poa.gov.in</p>
+                            <p>🕐 Available: 24x7</p>
+                            <p>🌐 SMS Support: Send 'DBT' to 7738299899</p>
+                        </div>
+                        <!-- <div class="footer__section">
+                            <h4>Integration Status</h4>
+                            <div class="footer-integrations">
+                                <div class="integration-item">
+                                    <span class="status status--success">●</span> PFMS
+                                </div>
+                                <div class="integration-item">
+                                    <span class="status status--success">●</span> Aadhaar
+                                </div>
+                                <div class="integration-item">
+                                    <span class="status status--success">●</span> eCourts
+                                </div>
+                                <div class="integration-item">
+                                    <span class="status status--success">●</span> CCTNS
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="footer__bottom">
+                        <p>&copy; 2025 Government of India | Ministry of Social Justice & Empowerment | All rights
+                            reserved</p>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <!-- Beneficiary Portal Section -->
+        <section id="beneficiary" class="section">
+            <div class="container">
+                <div class="portal-header">
+                    <h2>Beneficiary Portal</h2>
+                    <div class="portal-actions">
+                        <button class="btn btn--outline" onclick="showBeneficiaryTab('apply')">New Application</button>
+                        <button class="btn btn--outline" onclick="showBeneficiaryTab('track')">Track Status</button>
+                        <button class="btn btn--outline" onclick="showBeneficiaryTab('grievance')">File
+                            Grievance</button>
+                        <button class="btn btn--outline" onclick="showBeneficiaryTab('documents')">My Documents</button>
+                    </div>
+                </div>
+
+                <!-- Application Tab -->
+                <div class="tab-content active" id="applyTab">
+                    <div class="eligibility-check">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>📋 Eligibility & Document Checker</h3>
+                                <div class="form-group">
+                                    <label class="form-label">Select Case Type *</label>
+                                    <select class="form-control" id="caseTypeSelector"
+                                        onchange="updateEligibilityInfo()">
+                                        <option value="">Choose your case type</option>
+                                        <option value="pcr001">PCR - Untouchability Practice</option>
+                                        <option value="pcr002">PCR - Social Boycott</option>
+                                        <option value="pcr003">PCR - Denial of Services</option>
+                                        <option value="pcr004">PCR - Forced Labor</option>
+                                        <option value="poa001">PoA - Physical Assault</option>
+                                        <option value="poa002">PoA - Sexual Violence</option>
+                                        <option value="poa003">PoA - Property Damage</option>
+                                        <option value="poa004">PoA - Economic Boycott</option>
+                                        <option value="poa005">PoA - Public Humiliation</option>
+                                        <option value="icm001">Inter-caste Marriage - Central Scheme</option>
+                                        <option value="icm002">Inter-caste Marriage - State Benefits</option>
+                                    </select>
+                                </div>
+                                <div id="eligibilityInfo" class="eligibility-info hidden">
+                                    <!-- Dynamic content will be populated -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Application Form -->
+                    <div class="application-form hidden" id="applicationForm">
+                        <div class="progress-indicator">
+                            <div class="progress-step active" data-step="1">Personal Details</div>
+                            <div class="progress-step" data-step="2">Case Information</div>
+                            <div class="progress-step" data-step="3">Documents</div>
+                            <div class="progress-step" data-step="4">Bank Details</div>
+                            <div class="progress-step" data-step="5">Verification</div>
+                        </div>
+
+                        <form id="beneficiaryApplicationForm">
+                            <!-- Step 1: Enhanced Personal Details -->
+                            <div class="form-step active" data-step="1">
+                                <div class="card">
+                                    <div class="card__body">
+                                        <h3>👤 Personal Information</h3>
+                                        <div class="form-grid">
+                                            <div class="form-group">
+                                                <label class="form-label">Full Name (as per Aadhaar) *</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Father's/Spouse Name *</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Aadhaar Number *</label>
+                                                <input type="text" class="form-control" placeholder="xxxx-xxxx-xxxx"
+                                                    maxlength="14" required>
+                                                <small>VID can also be used for privacy</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Date of Birth *</label>
+                                                <input type="date" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Gender *</label>
+                                                <select class="form-control" required>
+                                                    <option value="">Select Gender</option>
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                    <option value="transgender">Transgender</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Social Category *</label>
+                                                <select class="form-control" required>
+                                                    <option value="">Select Category</option>
+                                                    <option value="sc">Scheduled Caste</option>
+                                                    <option value="st">Scheduled Tribe</option>
+                                                    <option value="general">General</option>
+                                                    <option value="obc">Other Backward Class</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Mobile Number *</label>
+                                                <input type="tel" class="form-control" pattern="[6-9][0-9]{9}" required>
+                                                <small>Must be linked with Aadhaar</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Email Address</label>
+                                                <input type="email" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Annual Income *</label>
+                                                <select class="form-control" required>
+                                                    <option value="">Select Income Range</option>
+                                                    <option value="0-100000">Below ₹1,00,000</option>
+                                                    <option value="100001-200000">₹1,00,001 - ₹2,00,000</option>
+                                                    <option value="200001-300000">₹2,00,001 - ₹3,00,000</option>
+                                                    <option value="300001-500000">₹3,00,001 - ₹5,00,000</option>
+                                                    <option value="500000+">Above ₹5,00,000</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Address Details -->
+                                        <h4 style="margin-top: 2rem;">📍 Address Information</h4>
+                                        <div class="form-group">
+                                            <label class="form-label">Complete Address *</label>
+                                            <textarea class="form-control" rows="3" required></textarea>
+                                        </div>
+                                        <div class="form-grid">
+                                            <div class="form-group">
+                                                <label class="form-label">State *</label>
+                                                <select class="form-control" required
+                                                    onchange="updateDistricts(this.value)">
+                                                    <option value="">Select State</option>
+                                                    <option value="maharashtra">Maharashtra</option>
+                                                    <option value="uttar-pradesh">Uttar Pradesh</option>
+                                                    <option value="bihar">Bihar</option>
+                                                    <option value="rajasthan">Rajasthan</option>
+                                                    <option value="tamil-nadu">Tamil Nadu</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">District *</label>
+                                                <select class="form-control" id="districtSelect" required>
+                                                    <option value="">First select state</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Block/Tehsil *</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Village/City *</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">PIN Code *</label>
+                                                <input type="text" class="form-control" pattern="[0-9]{6}" maxlength="6"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-actions">
+                                    <button type="button" class="btn btn--primary" onclick="nextFormStep()">Next: Case
+                                        Details →</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Enhanced Case Information -->
+                            <div class="form-step" data-step="2">
+                                <div class="card">
+                                    <div class="card__body">
+                                        <h3>⚖️ Case Information</h3>
+                                        <div class="form-grid">
+                                            <div class="form-group">
+                                                <label class="form-label">Incident Date *</label>
+                                                <input type="date" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Incident Time</label>
+                                                <input type="time" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Incident Location *</label>
+                                            <textarea class="form-control" rows="2" required
+                                                placeholder="Provide detailed location of incident"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Detailed Description of Incident *</label>
+                                            <textarea class="form-control" rows="5" required
+                                                placeholder="Provide comprehensive details of the incident, persons involved, witnesses, etc."></textarea>
+                                        </div>
+
+                                        <h4>🚨 Police & Legal Details</h4>
+                                        <div class="form-grid">
+                                            <div class="form-group">
+                                                <label class="form-label">Police Station</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">FIR Number</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">FIR Date</label>
+                                                <input type="date" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Case Status</label>
+                                                <select class="form-control">
+                                                    <option value="">Select Status</option>
+                                                    <option value="fir-filed">FIR Filed</option>
+                                                    <option value="under-investigation">Under Investigation</option>
+                                                    <option value="chargesheet-filed">Chargesheet Filed</option>
+                                                    <option value="court-proceedings">Court Proceedings</option>
+                                                    <option value="judgment-given">Judgment Given</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Court Case Number (if any)</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Court Name</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <h4>👥 Accused Details</h4>
+                                        <div class="form-group">
+                                            <label class="form-label">Number of Accused Persons</label>
+                                            <input type="number" class="form-control" min="1" max="20">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Accused Details</label>
+                                            <textarea class="form-control" rows="3"
+                                                placeholder="Names and details of accused persons"></textarea>
+                                        </div>
+
+                                        <h4>👁️ Witness Information</h4>
+                                        <div class="form-group">
+                                            <label class="form-label">Witness Details</label>
+                                            <textarea class="form-control" rows="3"
+                                                placeholder="Names and contact details of witnesses"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-actions">
+                                    <button type="button" class="btn btn--outline" onclick="prevFormStep()">←
+                                        Previous</button>
+                                    <button type="button" class="btn btn--primary" onclick="nextFormStep()">Next:
+                                        Documents →</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Enhanced Document Upload -->
+                            <div class="form-step" data-step="3">
+                                <div class="card">
+                                    <div class="card__body">
+                                        <h3>📄 Document Upload</h3>
+                                        <div class="document-requirements" id="documentRequirements">
+                                            <!-- Dynamic document list will be populated -->
+                                        </div>
+
+                                        <div class="upload-grid" id="documentUploadGrid">
+                                            <!-- Document upload fields will be dynamically generated -->
+                                        </div>
+
+                                        <div class="upload-instructions">
+                                            <h4>📝 Upload Instructions</h4>
+                                            <ul>
+                                                <li>Documents should be clear and readable</li>
+                                                <li>Accepted formats: PDF, JPEG, PNG</li>
+                                                <li>Maximum file size: 5MB per document</li>
+                                                <li>All mandatory documents must be uploaded</li>
+                                                <li>Documents will be verified through DigiLocker integration</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-actions">
+                                    <button type="button" class="btn btn--outline" onclick="prevFormStep()">←
+                                        Previous</button>
+                                    <button type="button" class="btn btn--primary" onclick="nextFormStep()">Next: Bank
+                                        Details →</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 4: Bank Details with IFSC Validation -->
+                            <div class="form-step" data-step="4">
+                                <div class="card">
+                                    <div class="card__body">
+                                        <h3>🏦 Bank Account Details</h3>
+                                        <div class="form-grid">
+                                            <div class="form-group">
+                                                <label class="form-label">Bank Name *</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Account Holder Name *</label>
+                                                <input type="text" class="form-control" required>
+                                                <small>Must match with your legal name</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Account Number *</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Confirm Account Number *</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">IFSC Code *</label>
+                                                <input type="text" class="form-control" maxlength="11" required
+                                                    onblur="validateIFSC(this.value)">
+                                                <small id="ifscValidation" class="validation-message"></small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Account Type *</label>
+                                                <select class="form-control" required>
+                                                    <option value="">Select Account Type</option>
+                                                    <option value="savings">Savings</option>
+                                                    <option value="current">Current</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="bank-verification">
+                                            <button type="button" class="btn btn--outline"
+                                                onclick="verifyBankAccount()">
+                                                🔐 Verify Account Details
+                                            </button>
+                                            <div id="bankVerificationStatus" class="verification-status hidden">
+                                                <!-- Verification status will be shown here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-actions">
+                                    <button type="button" class="btn btn--outline" onclick="prevFormStep()">←
+                                        Previous</button>
+                                    <button type="button" class="btn btn--primary" onclick="nextFormStep()">Next:
+                                        Verification →</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 5: Multi-factor Verification -->
+                            <div class="form-step" data-step="5">
+                                <div class="card">
+                                    <div class="card__body">
+                                        <h3>🔐 Verification & Submission</h3>
+
+                                        <div class="verification-steps">
+                                            <div class="verification-step">
+                                                <div class="verify-header">
+                                                    <h4>📱 Aadhaar OTP Verification</h4>
+                                                    <button type="button" class="btn btn--sm btn--primary"
+                                                        onclick="sendAadhaarOTP()">Send OTP</button>
+                                                </div>
+                                                <div class="otp-section hidden" id="aadhaarOTPSection">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control otp-input"
+                                                            placeholder="Enter 6-digit OTP" maxlength="6">
+                                                        <button type="button" class="btn btn--sm btn--outline"
+                                                            onclick="verifyAadhaarOTP()">Verify</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="verification-step">
+                                                <div class="verify-header">
+                                                    <h4>🏦 Bank Account Verification</h4>
+                                                    <button type="button" class="btn btn--sm btn--primary"
+                                                        onclick="verifyBankDetails()">Verify Account</button>
+                                                </div>
+                                                <div id="bankVerificationResult" class="verification-result hidden">
+                                                </div>
+                                            </div>
+
+                                            <div class="verification-step">
+                                                <div class="verify-header">
+                                                    <h4>📄 Document Validation</h4>
+                                                    <button type="button" class="btn btn--sm btn--primary"
+                                                        onclick="validateDocuments()">Validate All</button>
+                                                </div>
+                                                <div id="documentValidationResult" class="verification-result hidden">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Consent and Declarations -->
+                                        <div class="consent-section">
+                                            <h4>✅ Consent & Declarations</h4>
+                                            <div class="form-group">
+                                                <label class="form-label checkbox-label">
+                                                    <input type="checkbox" required>
+                                                    I hereby declare that all information provided is true, complete,
+                                                    and accurate to the best of my knowledge
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label checkbox-label">
+                                                    <input type="checkbox" required>
+                                                    I consent to the processing of my personal data for this application
+                                                    and related services
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label checkbox-label">
+                                                    <input type="checkbox" required>
+                                                    I understand that providing false information is punishable under
+                                                    law
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label checkbox-label">
+                                                    <input type="checkbox" required>
+                                                    I agree to cooperate with verification processes and field
+                                                    investigations if required
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-actions">
+                                    <button type="button" class="btn btn--outline" onclick="prevFormStep()">←
+                                        Previous</button>
+                                    <button type="submit" class="btn btn--primary btn--lg">🚀 Submit
+                                        Application</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Track Tab -->
+                <div class="tab-content" id="trackTab">
+                    <div class="track-section">
+                        <h3>📍 Track Your Application</h3>
+                        <div class="track-input-section">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                    placeholder="Enter Application ID or Mobile Number" id="trackingInput">
+                                <button class="btn btn--primary" onclick="performTracking()">Track Application</button>
+                            </div>
+                        </div>
+                        <div id="trackingResults" class="tracking-results"></div>
+                    </div>
+                </div>
+
+                <!-- Grievance Tab -->
+                <div class="tab-content" id="grievanceTab">
+                    <div class="grievance-section">
+                        <div class="section-header">
+                            <h3>📢 File Grievance</h3>
+                            <button class="btn btn--primary" onclick="showNewGrievanceForm()">+ New Grievance</button>
+                        </div>
+                        <div id="grievanceForm" class="hidden">
+                            <!-- Grievance form will be populated -->
+                        </div>
+                        <div id="grievancesList">
+                            <!-- Existing grievances will be shown -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documents Tab -->
+                <div class="tab-content" id="documentsTab">
+                    <div class="documents-section">
+                        <h3>📁 My Documents</h3>
+                        <div class="document-vault">
+                            <div class="vault-header">
+                                <p>Securely store and access your application documents</p>
+                            </div>
+                            <div class="document-grid" id="myDocuments">
+                                <!-- User documents will be listed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                        <p>&copy; 2025 Government of India | Ministry of Social Justice & Empowerment | All rights
+                            reserved</p>
+                    </div>
+        </section>
+
+        <!-- CSC Portal Section -->
+        <section id="csc" class="section">
+            <div class="container">
+                <div class="csc-header">
+                    <h2>🏢 CSC Operator Portal</h2>
+                    <div class="csc-info">
+                        <span>Rural Access Point for Digital Services</span>
+                        <div class="operator-status">
+                            <span class="status status--success">Operator: Online</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSC Login -->
+                <div class="csc-login" id="cscLogin">
+                    <div class="card" style="max-width: 500px; margin: 0 auto;">
+                        <div class="card__body">
+                            <h3>CSC Operator Login</h3>
+                            <form onsubmit="cscLogin(event)">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">CSC ID *</label>
+                                        <input type="text" class="form-control" required placeholder="CSC12345678901">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Operator ID *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Password *</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn--primary btn--full-width">Login to CSC
+                                    Portal</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSC Dashboard -->
+                <div class="csc-dashboard hidden" id="cscDashboard">
+                    <div class="csc-nav">
+                        <button class="nav-btn active" onclick="showCSCTab('assisted')">Assisted Applications</button>
+                        <button class="nav-btn" onclick="showCSCTab('status')">Status Inquiry</button>
+                        <button class="nav-btn" onclick="showCSCTab('services')">Print Services</button>
+                        <button class="nav-btn" onclick="showCSCTab('reports')">Daily Reports</button>
+                    </div>
+
+                    <!-- Assisted Applications -->
+                    <div class="csc-tab-content active" id="assistedTab">
+                        <h3>👥 Assisted Application Processing</h3>
+                        <div class="assisted-form-container">
+                            <!-- This would contain a simplified version of the application form -->
+                            <p>Complete application form on behalf of beneficiary...</p>
+                            <button class="btn btn--primary" onclick="startAssistedApplication()">Start New
+                                Application</button>
+                        </div>
+                    </div>
+
+                    <!-- Status Inquiry -->
+                    <div class="csc-tab-content" id="statusTab">
+                        <h3>🔍 Status Inquiry Service</h3>
+                        <div class="inquiry-form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Application ID or Mobile Number">
+                                <button class="btn btn--primary">Check Status</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Print Services -->
+                    <div class="csc-tab-content" id="servicesTab">
+                        <h3>🖨️ Print & Document Services</h3>
+                        <div class="print-services">
+                            <button class="service-btn">Print Application Receipt</button>
+                            <button class="service-btn">Print Payment Receipt</button>
+                            <button class="service-btn">Print Status Report</button>
+                        </div>
+                    </div>
+
+                    <!-- Daily Reports -->
+                    <div class="csc-tab-content" id="reportsTab">
+                        <h3>📊 Daily Reports</h3>
+                        <div class="report-summary">
+                            <div class="report-stat">
+                                <h4>12</h4>
+                                <p>Applications Processed Today</p>
+                            </div>
+                            <div class="report-stat">
+                                <h4>35</h4>
+                                <p>Status Inquiries</p>
+                            </div>
+                            <div class="report-stat">
+                                <h4>8</h4>
+                                <p>Print Services</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                        <p>&copy; 2025 Government of India | Ministry of Social Justice & Empowerment | All rights
+                            reserved</p>
+                    </div>
+        </section>
+
+        <!-- Public Dashboard Section -->
+        <section id="public" class="section">
+            <div class="container">
+                <h2>📊 Public Transparency Dashboard</h2>
+                <div class="dashboard-tabs">
+                    <button class="tab-btn active" onclick="showPublicTab('overview')">Overview</button>
+                    <button class="tab-btn" onclick="showPublicTab('states')">State-wise Data</button>
+                    <button class="tab-btn" onclick="showPublicTab('trends')">Trends</button>
+                    <button class="tab-btn" onclick="showPublicTab('success')">Success Stories</button>
+                </div>
+
+                <!-- Overview Tab -->
+                <div class="public-tab-content active" id="overviewPublicTab">
+                    <div class="public-stats-grid">
+                        <div class="public-stat-card">
+                            <h3>₹456.7 Crores</h3>
+                            <p>Total Funds Disbursed (All Time)</p>
+                        </div>
+                        <div class="public-stat-card">
+                            <h3>1,54,200</h3>
+                            <p>Total Applications Processed</p>
+                        </div>
+                        <div class="public-stat-card">
+                            <h3>89.7%</h3>
+                            <p>Overall Approval Rate</p>
+                        </div>
+                        <div class="public-stat-card">
+                            <h3>11.8 Days</h3>
+                            <p>Average Processing Time</p>
+                        </div>
+                    </div>
+
+                    <div class="public-charts">
+                        <div class="chart-card">
+                            <h4>Monthly Progress</h4>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="publicProgressChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h4>Case Type Distribution</h4>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="publicCaseChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- State-wise Tab -->
+                <div class="public-tab-content" id="statesPublicTab">
+                    <h3>State-wise Performance</h3>
+                    <div class="state-performance" id="statePerformanceData">
+                        <!-- State data will be populated -->
+                    </div>
+                </div>
+
+                <!-- Trends Tab -->
+                <div class="public-tab-content" id="trendsPublicTab">
+                    <h3>Performance Trends</h3>
+                    <div class="trends-container">
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="trendsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Stories Tab -->
+                <div class="public-tab-content" id="successPublicTab">
+                    <h3>Success Stories</h3>
+                    <div class="success-stories" id="successStories">
+                        <!-- Success stories will be populated -->
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                        <p>&copy; 2025 Government of India | Ministry of Social Justice & Empowerment | All rights
+                            reserved</p>
+                    </div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin" class="section">
+            <div class="container">
+                <!-- Admin Login -->
+                <div class="admin-login" id="adminLogin">
+                    <div class="card" style="max-width: 500px; margin: 0 auto;">
+                        <div class="card__body">
+                            <h3>🔐 Administrative Login</h3>
+                            <form onsubmit="adminLogin(event)">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">Username *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Role *</label>
+                                        <select class="form-control" required>
+                                            <option value="">Select Role</option>
+                                            <option value="admin">System Administrator</option>
+                                            <option value="state">State Officer</option>
+                                            <option value="district">District Officer</option>
+                                            <option value="bank">Bank Nodal Officer</option>
+                                            <option value="monitor">Monitoring Officer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Password *</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label checkbox-label">
+                                        <input type="checkbox" required>
+                                        I acknowledge secure access responsibilities
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn--primary btn--full-width">Secure Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Dashboard -->
+                <div class="admin-dashboard hidden" id="adminDashboard">
+                    <div class="admin-header">
+                        <h2>⚡ Administrative Control Center</h2>
+                        <div class="admin-actions">
+                            <button class="btn btn--outline btn--sm" onclick="exportReports()">📊 Export
+                                Reports</button>
+                            <button class="btn btn--outline btn--sm" onclick="systemHealth()">🔧 System Health</button>
+                            <button class="btn btn--outline btn--sm" onclick="adminLogout()">Logout</button>
+                        </div>
+                    </div>
+
+                    <!-- Admin Tabs -->
+                    <div class="admin-tabs">
+                        <button class="admin-tab-btn active" onclick="showAdminTab('dashboard')">Dashboard</button>
+                        <button class="admin-tab-btn" onclick="showAdminTab('workflow')">Workflow</button>
+                        <button class="admin-tab-btn" onclick="showAdminTab('payments')">Payments</button>
+                        <button class="admin-tab-btn" onclick="showAdminTab('integration')">Integration</button>
+                        <button class="admin-tab-btn" onclick="showAdminTab('analytics')">Analytics</button>
+                        <button class="admin-tab-btn" onclick="showAdminTab('security')">Security</button>
+                    </div>
+
+                    <!-- Dashboard Tab -->
+                    <div class="admin-tab-content active" id="dashboardAdminTab">
+                        <div class="admin-overview">
+                            <div class="alert-section">
+                                <h3>🚨 Priority Alerts</h3>
+                                <div class="alert-list">
+                                    <div class="alert alert--warning">45 applications pending review for >15 days</div>
+                                    <div class="alert alert--info">3 payment failures require manual intervention</div>
+                                    <div class="alert alert--success">Daily processing target achieved (98.2%)</div>
+                                </div>
+                            </div>
+
+                            <div class="performance-metrics">
+                                <h3>📊 Real-time Performance</h3>
+                                <div class="metrics-grid">
+                                    <div class="metric-card">
+                                        <h4>2,200</h4>
+                                        <p>Pending Review</p>
+                                        <span class="trend up">↗ +150 today</span>
+                                    </div>
+                                    <div class="metric-card">
+                                        <h4>₹12.5 Cr</h4>
+                                        <p>Pending Disbursement</p>
+                                        <span class="trend down">↘ -₹2.1 Cr</span>
+                                    </div>
+                                    <div class="metric-card">
+                                        <h4>89.7%</h4>
+                                        <p>SLA Compliance</p>
+                                        <span class="trend stable">→ Stable</span>
+                                    </div>
+                                    <div class="metric-card">
+                                        <h4>99.1%</h4>
+                                        <p>System Uptime</p>
+                                        <span class="trend up">↗ Excellent</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Workflow Tab -->
+                    <div class="admin-tab-content" id="workflowAdminTab">
+                        <div class="workflow-management">
+                            <h3>🔄 Multi-level Approval Workflow</h3>
+                            <div class="workflow-filters">
+                                <select class="form-control">
+                                    <option>All Stages</option>
+                                    <option>Document Verification</option>
+                                    <option>Field Investigation</option>
+                                    <option>District Approval</option>
+                                    <option>State Approval</option>
+                                    <option>Payment Authorization</option>
+                                </select>
+                                <select class="form-control">
+                                    <option>All Priority</option>
+                                    <option>High Priority</option>
+                                    <option>Normal</option>
+                                    <option>Overdue</option>
+                                </select>
+                                <button class="btn btn--primary">Process Bulk Actions</button>
+                            </div>
+                            <div class="workflow-queue" id="workflowQueue">
+                                <!-- Workflow items will be populated -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Integration Tab -->
+                    <div class="admin-tab-content" id="integrationAdminTab">
+                        <h3>🔗 System Integration Status</h3>
+                        <div class="integration-monitoring" id="integrationMonitoring">
+                            <!-- Integration status will be populated -->
+                        </div>
+                    </div>
+                </div>
+                <div class="footer__bottom">
+                        <p>&copy; 2025 Government of India | Ministry of Social Justice & Empowerment | All rights
+                            reserved</p>
+                    </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <!-- Enhanced Modals -->
+    <!-- <div class="modal hidden" id="successModal">
+        <div class="modal__content">
+            <h3>✅ Application Submitted Successfully!</h3>
+            <div class="success-details">
+                <p><strong>Application ID:</strong> <span id="applicationId"></span></p>
+                <p><strong>Estimated Processing Time:</strong> 15-20 working days</p>
+                <p><strong>Next Steps:</strong></p>
+                <ul>
+                    <li>Document verification will begin within 48 hours</li>
+                    <li>You will receive SMS/Email updates at each stage</li>
+                    <li>Field verification may be conducted if required</li>
+                </ul>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn--outline" onclick="downloadReceipt()">📄 Download Receipt</button>
+                <button class="btn btn--primary" onclick="closeModal('successModal')">Continue</button>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="modal hidden" id="otpModal">
+        <div class="modal__content">
+            <h3>📱 OTP Verification</h3>
+            <p>Please enter the OTP sent to your registered mobile number</p>
+            <div class="otp-input-container">
+                <input type="text" class="otp-digit" maxlength="1">
+                <input type="text" class="otp-digit" maxlength="1">
+                <input type="text" class="otp-digit" maxlength="1">
+                <input type="text" class="otp-digit" maxlength="1">
+                <input type="text" class="otp-digit" maxlength="1">
+                <input type="text" class="otp-digit" maxlength="1">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn--outline" onclick="resendOTP()">Resend OTP</button>
+                <button class="btn btn--primary" onclick="verifyOTP()">Verify</button>
+            </div>
+        </div>
+    </div> -->
+    <script src="app.js"></script>
+    <script>
+        const navLinks = document.querySelectorAll('.nav__link');
+        const sections = document.querySelectorAll('.section');
+
+        // Navigation click
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const sectionId = this.dataset.section;
+                showSection(sectionId);
+            });
+        });
+
+        function showSection(sectionId) {
+            // Show section
+            sections.forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+
+            // Highlight nav link
+            navLinks.forEach(n => n.classList.remove('active'));
+            document.querySelector(`.nav__link[data-section="${sectionId}"]`).classList.add('active');
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+
+</html>
