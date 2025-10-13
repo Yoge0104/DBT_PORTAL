@@ -297,7 +297,218 @@
   --color-info-rgb: var(--color-slate-500-rgb);
 }
 
+.nav__link[data-section="integrations"]::after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-left: 6px;
+  background: radial-gradient(circle at center, #2ea043 0%, #2ea043 60%, transparent 60%);
+  border-radius: 50%;
+}
+
 /* Base styles */
+.integration-lab {
+  display: grid;
+  gap: 3rem;
+  padding: 2rem 0 4rem;
+}
+
+.integration-lab .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.integration-lab .section-subtitle {
+  margin: 0.5rem 0 0;
+  color: var(--color-text-secondary);
+  max-width: 620px;
+}
+
+.integration-badge {
+  align-self: center;
+  padding: 0.5rem 1rem;
+  background: rgba(var(--color-success-rgb), 0.15);
+  color: var(--color-success);
+  border: 1px solid rgba(var(--color-success-rgb), 0.25);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.02em;
+}
+
+.integration-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.integration-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.integration-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.integration-card h3 {
+  margin: 0;
+}
+
+.integration-card p {
+  margin: 0.35rem 0 0;
+  color: var(--color-text-secondary);
+}
+
+.integration-meta {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  display: grid;
+  gap: 0.35rem;
+}
+
+.integration-meta li::marker {
+  color: var(--color-primary);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.badge--sandbox {
+  background: rgba(var(--color-success-rgb), 0.15);
+  color: var(--color-success);
+  border: 1px solid rgba(var(--color-success-rgb), 0.2);
+}
+
+.badge--mock {
+  background: rgba(var(--color-warning-rgb), 0.15);
+  color: var(--color-warning);
+  border: 1px solid rgba(var(--color-warning-rgb), 0.2);
+}
+
+.integration-details summary {
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+}
+
+.integration-io {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.integration-io pre {
+  background: rgba(var(--color-slate-500-rgb), 0.08);
+  border: 1px solid rgba(var(--color-slate-500-rgb), 0.15);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  font-size: var(--font-size-sm);
+  max-height: 240px;
+  overflow: auto;
+}
+
+.integration-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot--success {
+  background: var(--color-success);
+}
+
+.integration-timeline,
+.integration-log,
+.integration-reference {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.integration-timeline ol {
+  padding-left: 1.25rem;
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.integration-timeline li {
+  line-height: 1.4;
+}
+
+.timeline-timestamp {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  margin-top: 0.25rem;
+}
+
+.integration-log table,
+.integration-reference table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.integration-log th,
+.integration-log td,
+.integration-reference th,
+.integration-reference td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(var(--color-border), 0.4);
+  text-align: left;
+  vertical-align: top;
+}
+
+.integration-log tbody tr:last-child td,
+.integration-reference tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.integration-log thead,
+.integration-reference thead {
+  background: rgba(var(--color-slate-500-rgb), 0.08);
+}
+
+.empty-log {
+  text-align: center;
+  color: var(--color-text-secondary);
+}
 html {
   font-size: var(--font-size-base);
   font-family: var(--font-family-base);

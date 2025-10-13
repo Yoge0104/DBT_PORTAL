@@ -129,6 +129,91 @@ const enhancedData = {
       ]
     }
   ],
+  integrationLab: {
+    mocks: {
+      aadhaar: {
+        endpoint: 'https://gateway.uidai.gov.in/uidai/v2/ekyc',
+        environment: 'UIDAI Sandbox',
+        request: {
+          aadhaarNumber: '999988887777',
+          otp: '123456',
+          transactionId: 'DBTPCR-2024-001',
+          consent: true
+        },
+        response: {
+          status: 'success',
+          kycDetails: {
+            name: 'RAJESH KUMAR JADHAV',
+            gender: 'M',
+            dob: '1985-04-11',
+            address: 'Maharashtra, India',
+            photo: '[base64-encoded-photo]'
+          }
+        },
+        latency: 420
+      },
+      digilocker: {
+        endpoint: 'https://sandbox.digitallocker.gov.in/public/oauth2/1/token',
+        environment: 'DigiLocker Sandbox',
+        request: { grant_type: 'authorization_code', code: 'sample-code' },
+        response: {
+          access_token: 'sandbox-access-token',
+          expires_in: 3600,
+          token_type: 'Bearer'
+        },
+        latency: 380
+      },
+      ecourts: {
+        endpoint: 'https://staging.ecourts.gov.in/api/case-status',
+        environment: 'eCourts Mock',
+        request: {
+          cino: 'MHHC01-000123-2024',
+          caseType: 'Criminal',
+          district: 'Ahmednagar'
+        },
+        response: {
+          status: 'success',
+          case_status: 'Under Trial',
+          next_hearing_date: '2024-10-14',
+          judge: 'Hon. JMFC Rahuri'
+        },
+        latency: 540
+      },
+      pfms: {
+        endpoint: 'https://pfms.nic.in/test/apis/paymentstatus',
+        environment: 'PFMS Test Bed',
+        request: {
+          accountNumber: '30123456789',
+          ifsc: 'SBIN0001234',
+          transactionRef: 'PFMS/2024/98765'
+        },
+        response: {
+          status: 'credited',
+          amount: 45000,
+          utr: 'PFMS20241005000123',
+          creditedOn: '2024-10-05T08:45:00Z'
+        },
+        latency: 290
+      },
+      bank: {
+        endpoint: 'https://api.mockbank.in/v1/account/verify',
+        environment: 'NPCI Mock Bank',
+        request: {
+          accountHolder: 'Rajesh Kumar Jadhav',
+          accountNumber: '30123456789',
+          ifsc: 'SBIN0001234'
+        },
+        response: {
+          status: 'verified',
+          bankName: 'State Bank of India',
+          branch: 'Rahuri'
+        },
+        latency: 310
+      }
+    },
+    timeline: [],
+    log: []
+  },
   grievances: [
     {
       id: "GRV/2024/001",
@@ -400,6 +485,9 @@ function showSection(sectionId) {
         showPublicTab('overview');
         updatePublicCharts();
         break;
+      case 'integrations':
+        initializeIntegrationLab();
+        break;
       case 'admin':
         if (isAdminLoggedIn) {
           showAdminTab('dashboard');
@@ -427,6 +515,111 @@ function toggleMobileMenu() {
   const mobileMenu = document.getElementById('mobileMenu');
   mobileMenu.classList.toggle('hidden');
   mobileMenu.classList.toggle('active');
+}
+
+// Integration Lab Functions
+let integrationLabInitialized = false;
+
+function initializeIntegrationLab() {
+  if (!integrationLabInitialized) {
+    updateIntegrationTimeline();
+    updateIntegrationLog();
+    integrationLabInitialized = true;
+  }
+}
+
+function runIntegrationDemo(systemKey) {
+  const { mocks, timeline, log } = enhancedData.integrationLab;
+  const mock = mocks[systemKey];
+  if (!mock) {
+    showNotification('Unknown integration selected', 'error');
+    return;
+  }
+
+  const requestElement = document.getElementById(`${systemKey}Request`);
+  const responseElement = document.getElementById(`${systemKey}Response`);
+  const lastRunElement = document.getElementById(`${systemKey}LastRun`);
+  const logBody = document.getElementById('integrationLogBody');
+
+  if (logBody && logBody.querySelector('.empty-log')) {
+    logBody.innerHTML = '';
+  }
+
+  if (requestElement) requestElement.textContent = 'Sending request...';
+  if (responseElement) responseElement.textContent = '';
+  showNotification(`Connecting to ${mock.environment} for ${mock.endpoint}`, 'info');
+
+  setTimeout(() => {
+    const latency = mock.latency + Math.floor(Math.random() * 120) - 60;
+
+    if (requestElement) {
+      requestElement.textContent = JSON.stringify({
+        method: 'POST',
+        url: mock.endpoint,
+        headers: { 'Content-Type': 'application/json' },
+        payload: mock.request
+      }, null, 2);
+    }
+    if (responseElement) {
+      responseElement.textContent = JSON.stringify(mock.response, null, 2);
+    }
+    if (lastRunElement) {
+      lastRunElement.textContent = `Last run: ${new Date().toLocaleString()} (${latency} ms)`;
+    }
+
+    timeline.push({
+      timestamp: new Date(),
+      label: `${mock.environment} - ${systemKey.toUpperCase()}`,
+      result: mock.response.status || 'success'
+    });
+    updateIntegrationTimeline();
+
+    log.unshift({
+      timestamp: new Date().toLocaleTimeString(),
+      system: systemKey.toUpperCase(),
+      action: `Demo API call to ${mock.endpoint}`,
+      status: mock.response.status || 'success',
+      latency: `${latency} ms`
+    });
+    updateIntegrationLog();
+
+    showNotification(`${systemKey.toUpperCase()} demo completed`, 'success');
+  }, mock.latency);
+}
+
+function updateIntegrationTimeline() {
+  const timelineElement = document.getElementById('integrationTimeline');
+  if (!timelineElement) return;
+  const { timeline } = enhancedData.integrationLab;
+  if (!timeline.length) {
+    timelineElement.innerHTML = '<li>No demo runs yet. Execute an integration to populate the timeline.</li>';
+    return;
+  }
+  timelineElement.innerHTML = timeline.slice(-5).map(item => `
+    <li>
+      <strong>${item.label}</strong> – ${item.result}
+      <span class="timeline-timestamp">${item.timestamp.toLocaleString()}</span>
+    </li>
+  `).join('');
+}
+
+function updateIntegrationLog() {
+  const logBody = document.getElementById('integrationLogBody');
+  if (!logBody) return;
+  const { log } = enhancedData.integrationLab;
+  if (!log.length) {
+    logBody.innerHTML = '<tr><td colspan="5" class="empty-log">Activity will appear after running demos.</td></tr>';
+    return;
+  }
+  logBody.innerHTML = log.slice(0, 10).map(entry => `
+    <tr>
+      <td>${entry.timestamp}</td>
+      <td>${entry.system}</td>
+      <td>${entry.action}</td>
+      <td>${entry.status}</td>
+      <td>${entry.latency}</td>
+    </tr>
+  `).join('');
 }
 
 // Beneficiary Portal Functions

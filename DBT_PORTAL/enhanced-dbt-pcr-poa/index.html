@@ -12,7 +12,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: azure;
+            background-color:#ffffff;
         }
 
         .container {
@@ -23,7 +23,7 @@
 
         /* Header */
         .header {
-            background: #93bde8;
+            background:#ffffff;
             color: rgb(5, 4, 4);
             padding: 10px 0;
         }
@@ -60,11 +60,12 @@
             color: rgb(0, 0, 0);
             text-decoration: none;
             border-radius: 5px;
+            border: 1px solid var(--color-border);
             transition: 0.3s;
         }
 
         .nav__link:hover {
-            background: #6998df;
+            background: #10c0b1;
         }
 
         .nav__link.active {
@@ -155,6 +156,7 @@
                         <li><a href="#" class="nav__link" data-section="beneficiary">Victim/Beneficiary</a></li>
                         <li><a href="#" class="nav__link" data-section="csc">CSC Portal</a></li>
                         <li><a href="#" class="nav__link" data-section="public">Public Dashboard</a></li>
+                        <li><a href="#" class="nav__link" data-section="integrations">Integrations Lab</a></li>
                         <li><a href="#" class="nav__link" data-section="admin">Admin Login</a></li>
                     </ul>
                 </nav>
@@ -168,6 +170,7 @@
         <button onclick="showSection('beneficiary'); toggleMobileMenu()">Victim/Beneficiary</button>
         <button onclick="showSection('csc'); toggleMobileMenu()">CSC Portal</button>
         <button onclick="showSection('public'); toggleMobileMenu()">Public Dashboard</button>
+        <button onclick="showSection('integrations'); toggleMobileMenu()">Integrations Lab</button>
         <button onclick="showSection('admin'); toggleMobileMenu()">Admin Login</button>
     </div>
 
@@ -1036,6 +1039,263 @@
                     </div>
         </section>
 
+        <!-- Integrations Lab Section -->
+        <section id="integrations" class="section">
+            <div class="container">
+                <div class="integration-lab">
+                    <div class="section-header">
+                        <div>
+                            <h2>🔗 Integration Lab Demonstrator</h2>
+                            <p class="section-subtitle">Prototype flows showing how DBT portal connects securely with national platforms.</p>
+                        </div>
+                        <span class="integration-badge">Sandbox & Mock Environments</span>
+                    </div>
+
+                    <div class="integration-cards">
+                        <article class="integration-card" id="integrationCardAadhaar">
+                            <header class="integration-card__header">
+                                <div>
+                                    <h3>UIDAI Aadhaar e-KYC</h3>
+                                    <p>Identity proofing via OTP and e-KYC packet retrieval.</p>
+                                </div>
+                                <span class="badge badge--sandbox">UIDAI Sandbox</span>
+                            </header>
+                            <ul class="integration-meta">
+                                <li><strong>Endpoint</strong>: <code>POST https://gateway.uidai.gov.in/uidai/v2/ekyc</code></li>
+                                <li><strong>Auth</strong>: API Key + HMAC Signature</li>
+                                <li><strong>Latency</strong>: ~420 ms (simulated)</li>
+                            </ul>
+                            <button class="btn btn--primary" onclick="runIntegrationDemo('aadhaar')">Run Demo</button>
+                            <details class="integration-details">
+                                <summary>View Request / Response</summary>
+                                <div class="integration-io">
+                                    <div>
+                                        <h4>Request Payload</h4>
+                                        <pre id="aadhaarRequest">Click "Run Demo" to view payload.</pre>
+                                    </div>
+                                    <div>
+                                        <h4>Response</h4>
+                                        <pre id="aadhaarResponse">Awaiting demo run.</pre>
+                                    </div>
+                                </div>
+                            </details>
+                            <footer class="integration-card__footer">
+                                <span class="status-dot status-dot--success"></span>
+                                <span id="aadhaarLastRun">Last run: Never</span>
+                            </footer>
+                        </article>
+
+                        <article class="integration-card" id="integrationCardDigiLocker">
+                            <header class="integration-card__header">
+                                <div>
+                                    <h3>DigiLocker Document Vault</h3>
+                                    <p>Consent-driven retrieval of verified certificates.</p>
+                                </div>
+                                <span class="badge badge--sandbox">DigiLocker Sandbox</span>
+                            </header>
+                            <ul class="integration-meta">
+                                <li><strong>Endpoint</strong>: <code>POST https://sandbox.digitallocker.gov.in/public/oauth2/1/token</code></li>
+                                <li><strong>Auth</strong>: OAuth 2.0</li>
+                                <li><strong>Latency</strong>: ~380 ms (simulated)</li>
+                            </ul>
+                            <button class="btn btn--primary" onclick="runIntegrationDemo('digilocker')">Run Demo</button>
+                            <details class="integration-details">
+                                <summary>View Request / Response</summary>
+                                <div class="integration-io">
+                                    <div>
+                                        <h4>Request Payload</h4>
+                                        <pre id="digilockerRequest">Click "Run Demo" to view payload.</pre>
+                                    </div>
+                                    <div>
+                                        <h4>Response</h4>
+                                        <pre id="digilockerResponse">Awaiting demo run.</pre>
+                                    </div>
+                                </div>
+                            </details>
+                            <footer class="integration-card__footer">
+                                <span class="status-dot status-dot--success"></span>
+                                <span id="digilockerLastRun">Last run: Never</span>
+                            </footer>
+                        </article>
+
+                        <article class="integration-card" id="integrationCardECourts">
+                            <header class="integration-card__header">
+                                <div>
+                                    <h3>eCourts Case Status</h3>
+                                    <p>Fetch court disposition updates for legal verification.</p>
+                                </div>
+                                <span class="badge badge--mock">Mock JSON Fixture</span>
+                            </header>
+                            <ul class="integration-meta">
+                                <li><strong>Endpoint</strong>: <code>POST https://staging.ecourts.gov.in/api/case-status</code></li>
+                                <li><strong>Auth</strong>: Client ID + Secret</li>
+                                <li><strong>Latency</strong>: ~540 ms (simulated)</li>
+                            </ul>
+                            <button class="btn btn--primary" onclick="runIntegrationDemo('ecourts')">Run Demo</button>
+                            <details class="integration-details">
+                                <summary>View Request / Response</summary>
+                                <div class="integration-io">
+                                    <div>
+                                        <h4>Request Payload</h4>
+                                        <pre id="ecourtsRequest">Click "Run Demo" to view payload.</pre>
+                                    </div>
+                                    <div>
+                                        <h4>Response</h4>
+                                        <pre id="ecourtsResponse">Awaiting demo run.</pre>
+                                    </div>
+                                </div>
+                            </details>
+                            <footer class="integration-card__footer">
+                                <span class="status-dot status-dot--success"></span>
+                                <span id="ecourtsLastRun">Last run: Never</span>
+                            </footer>
+                        </article>
+
+                        <article class="integration-card" id="integrationCardPfms">
+                            <header class="integration-card__header">
+                                <div>
+                                    <h3>PFMS Payment Status</h3>
+                                    <p>Confirm fund disbursal through the PFMS test bed.</p>
+                                </div>
+                                <span class="badge badge--sandbox">PFMS Test Bed</span>
+                            </header>
+                            <ul class="integration-meta">
+                                <li><strong>Endpoint</strong>: <code>POST https://pfms.nic.in/test/apis/paymentstatus</code></li>
+                                <li><strong>Auth</strong>: Signed JSON payload</li>
+                                <li><strong>Latency</strong>: ~290 ms (simulated)</li>
+                            </ul>
+                            <button class="btn btn--primary" onclick="runIntegrationDemo('pfms')">Run Demo</button>
+                            <details class="integration-details">
+                                <summary>View Request / Response</summary>
+                                <div class="integration-io">
+                                    <div>
+                                        <h4>Request Payload</h4>
+                                        <pre id="pfmsRequest">Click "Run Demo" to view payload.</pre>
+                                    </div>
+                                    <div>
+                                        <h4>Response</h4>
+                                        <pre id="pfmsResponse">Awaiting demo run.</pre>
+                                    </div>
+                                </div>
+                            </details>
+                            <footer class="integration-card__footer">
+                                <span class="status-dot status-dot--success"></span>
+                                <span id="pfmsLastRun">Last run: Never</span>
+                            </footer>
+                        </article>
+
+                        <article class="integration-card" id="integrationCardBank">
+                            <header class="integration-card__header">
+                                <div>
+                                    <h3>Bank Account Verification</h3>
+                                    <p>NPCI-compliant account + IFSC validation mock service.</p>
+                                </div>
+                                <span class="badge badge--mock">Mock Bank API</span>
+                            </header>
+                            <ul class="integration-meta">
+                                <li><strong>Endpoint</strong>: <code>POST https://api.mockbank.in/v1/account/verify</code></li>
+                                <li><strong>Auth</strong>: Client certificate (mutual TLS)</li>
+                                <li><strong>Latency</strong>: ~310 ms (simulated)</li>
+                            </ul>
+                            <button class="btn btn--primary" onclick="runIntegrationDemo('bank')">Run Demo</button>
+                            <details class="integration-details">
+                                <summary>View Request / Response</summary>
+                                <div class="integration-io">
+                                    <div>
+                                        <h4>Request Payload</h4>
+                                        <pre id="bankRequest">Click "Run Demo" to view payload.</pre>
+                                    </div>
+                                    <div>
+                                        <h4>Response</h4>
+                                        <pre id="bankResponse">Awaiting demo run.</pre>
+                                    </div>
+                                </div>
+                            </details>
+                            <footer class="integration-card__footer">
+                                <span class="status-dot status-dot--success"></span>
+                                <span id="bankLastRun">Last run: Never</span>
+                            </footer>
+                        </article>
+                    </div>
+
+                    <div class="integration-timeline">
+                        <h3>Beneficiary Journey Timeline</h3>
+                        <p>This illustrates the composite flow from identity verification through final fund credit.</p>
+                        <ol id="integrationTimeline">
+                            <li>No demo runs yet. Execute an integration to populate the timeline.</li>
+                        </ol>
+                    </div>
+
+                    <div class="integration-log">
+                        <h3>Integration Activity Log</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>System</th>
+                                    <th>Action</th>
+                                    <th>Status</th>
+                                    <th>Latency</th>
+                                </tr>
+                            </thead>
+                            <tbody id="integrationLogBody">
+                                <tr>
+                                    <td colspan="5" class="empty-log">Activity will appear after running demos.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="integration-reference">
+                        <h3>Integration Environment Matrix</h3>
+                        <p class="section-subtitle">Guidance on sandbox configuration and production rollout steps.</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>System</th>
+                                    <th>Environment</th>
+                                    <th>Access Requirements</th>
+                                    <th>Production Switch Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>UIDAI Aadhaar</td>
+                                    <td>UIDAI Sandbox (Digimocker)</td>
+                                    <td>Sandbox API key, HMAC secret, registered ASA</td>
+                                    <td>Obtain production license, install HSM-backed keys, enforce Aadhaar Act compliance.</td>
+                                </tr>
+                                <tr>
+                                    <td>DigiLocker</td>
+                                    <td>National e-Governance Sandbox</td>
+                                    <td>Client ID/Secret, redirect URI registration</td>
+                                    <td>Upgrade to production app, enable digital signature validation, adhere to consent logging.</td>
+                                </tr>
+                                <tr>
+                                    <td>eCourts</td>
+                                    <td>Staging JSON Mocks</td>
+                                    <td>API client credentials, approved IP ranges</td>
+                                    <td>Whitelist production IP, rotate secrets, integrate with eCommittee SLA monitoring.</td>
+                                </tr>
+                                <tr>
+                                    <td>PFMS</td>
+                                    <td>PFMS Test Bed</td>
+                                    <td>Agency code, test certificate bundle</td>
+                                    <td>Switch to production gateway, schedule reconciliation jobs, follow PFMS security audits.</td>
+                                </tr>
+                                <tr>
+                                    <td>Banking</td>
+                                    <td>NPCI Mock Bank API</td>
+                                    <td>Mutual TLS cert, signed request object</td>
+                                    <td>Integrate with partner bank host-to-host, enable daily settlement files, comply with RBI data policy.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Admin Section -->
         <section id="admin" class="section">
             <div class="container">
@@ -1072,6 +1332,8 @@
                                         I acknowledge secure access responsibilities
                                     </label>
                                 </div>
+                                <h7>username=abc123@gmail.com/pass=Abc@123</h7>
+
                                 <button type="submit" class="btn btn--primary btn--full-width">Secure Login</button>
                             </form>
                         </div>
@@ -1088,6 +1350,7 @@
                             <button class="btn btn--outline btn--sm" onclick="systemHealth()">🔧 System Health</button>
                             <button class="btn btn--outline btn--sm" onclick="adminLogout()">Logout</button>
                         </div>
+                        
                     </div>
 
                     <!-- Admin Tabs -->
