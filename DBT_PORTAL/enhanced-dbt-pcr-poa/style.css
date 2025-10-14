@@ -2169,7 +2169,7 @@ select.form-control {
 }
 
 /* Enhanced Modals */
-.modal {
+ .modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -2229,7 +2229,9 @@ select.form-control {
   display: flex;
   gap: var(--space-12);
   justify-content: center;
-}
+} 
+ 
+
 
 /* OTP Modal */
 .otp-input-container {
@@ -2429,13 +2431,21 @@ select.form-control {
   color: var(--color-text-secondary);
 }
 
-.footer__bottom {
+.footer__bottom1{
   text-align: center;
   padding-top: var(--space-16);
   border-top: 1px solid var(--color-border);
   color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
+  font-size: var(--font-size-sm); 
+  /* text-align: center;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  padding-top: 10px;
+  background: none;
+  margin-top: 20px; */
+} 
 
 /* Validation Messages */
 .validation-message {
@@ -2812,3 +2822,24 @@ select.form-control {
 .mt-16 { margin-top: var(--space-16); }
 .mt-20 { margin-top: var(--space-20); }
 .mt-24 { margin-top: var(--space-24); }
+
+.footer__bottom{
+  text-align: center;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  font-size: var(--font-size-sm);
+  padding-top: 10px;
+  background: none;
+  margin-top: 20px;
+  text-align: center;
+  padding-top: var(--space-16);
+ 
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.footer__bottom p {
+margin-top: 5px 0;
+}

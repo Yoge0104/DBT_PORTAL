@@ -673,7 +673,7 @@ function updateEligibilityInfo() {
         ${selectedCase.documents.map(doc => `<li>${doc}</li>`).join('')}
       </ul>
       <div style="margin-top: 1rem;">
-        <button class="btn btn--primary" onclick="startApplication()">🚀 Start Application Process</button>
+        <button class="btn btn--primary" onclick="startApplication()"> Start Application Process</button>
       </div>
     `;
     
